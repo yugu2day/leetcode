@@ -20,6 +20,17 @@ class Solution(object):
         :type q: TreeNode
         :rtype: TreeNode
         """
+        # 如果左右均存在p点或q点的祖先，则root为最近祖先
+        # 不然取 左边或右边 的最近公共祖先
+        if not root:
+            return root
+        if root.val == p.val or root.val == q.val:
+            return root
         
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+        if left and right:
+            return root
+        return left if left else right
 # @lc code=end
 
