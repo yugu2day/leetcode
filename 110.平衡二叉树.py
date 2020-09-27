@@ -18,5 +18,18 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
+        self.flag = True
+
+        def helper(node):
+            # 比较左右两子树的深度，并返回自己的深度
+            if not node:
+                return 0
+            left = helper(node.left)
+            right = helper(node.right)
+            if abs(left - right) > 1:
+                self.flag = False
+            return max(left, right) + 1
+        helper(root)
+        return self.flag
 # @lc code=end
 
