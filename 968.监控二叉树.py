@@ -18,6 +18,24 @@ class Solution(object):
         :type root: TreeNode
         :rtype: int
         """
+        leaf = 0
+        monitor = 1
+        others = 2
+        self.res = 0
+
+        def dfs(node):
+            if not node:
+                return -1
+            left, right = dfs(node.left), dfs(node.right)
+            if left == leaf or right == leaf:   # 左右节点均是叶子结点， 该节点为监控节点
+                self.res += 1
+                return monitor
+            if left == monitor or right == monitor: # 左右节点存在监控节点， 该节点被监控
+                return others
+            return leaf # 左右节点既没有叶子结点也没有监控节点，该节点需要被上层节点监控
         
+        if dfs(root) == leaf:
+            self.res += 1
+        return self.res
 # @lc code=end
 

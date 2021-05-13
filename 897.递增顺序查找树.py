@@ -17,5 +17,27 @@ class Solution(object):
         :type root: TreeNode
         :rtype: TreeNode
         """
+        if not root:
+            return root
+        
+        head, _ = self.getHeaderAndTail(root)
+        return head
+    
+    def getHeaderAndTail(self, node):
+        if not node:
+            return node, node
+        leftH, leftT = self.getHeaderAndTail(node.left)
+        if leftT:
+            leftT.right = node
+            node.left = None
+        rightH, rightT = self.getHeaderAndTail(node.right)
+
+        node.right = rightH
+        if not leftH:
+            leftH = node
+        if not rightT:
+            rightT = node
+        return (leftH, rightT)
+        
 # @lc code=end
 
