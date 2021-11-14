@@ -17,19 +17,11 @@ class Solution(object):
         n1, n2 = A[0], A[0]
         r1, r2 = A[0], A[0]
         for num in A[1:]:
-            if n1 + num > num:
-                n1 = num + n1
-                r1 = max(r1, n1)
-            else:
-                n1 = num
-                r1 = max(n1, r1)
-            
-            if n2 + num < n2:
-                n2 = min(num, n2+num)
-                r2 = min(n2, r2)
-            else:
-                n2 = min(n2 + num, num)
-                r2 = min(n2, r2)
+            n1 = max(num, n1+num)
+            r1 = max(r1, n1)
+
+            n2 = min(num, num+n2)
+            r2 = min(r2, n2)
 
         return max(r1, s-r2) if s != r2 else r1
 
